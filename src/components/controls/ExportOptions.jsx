@@ -1,21 +1,20 @@
+import useStore from "@/store";
 import {
   DownloadIcon,
   ImageIcon,
   Link2Icon,
   Share2Icon,
 } from "@radix-ui/react-icons";
+import { toBlob, toPng, toSvg } from "html-to-image";
+import toast from "react-hot-toast";
 import { Button } from "../ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuTrigger,
+  DropdownMenuTrigger
 } from "../ui/dropdown-menu";
-import { toBlob, toPng, toSvg } from "html-to-image";
-import toast from "react-hot-toast";
-import useStore from "@/store";
 
 export default function ExportOptions({ targetRef }) {
   const title = useStore((state) => state.title);
@@ -95,12 +94,10 @@ export default function ExportOptions({ targetRef }) {
         >
           <ImageIcon />
           Copy Image
-          <DropdownMenuShortcut>⌘C</DropdownMenuShortcut>
         </DropdownMenuItem>
         <DropdownMenuItem className="gap-2" onClick={() => copyLink()}>
           <Link2Icon />
           Copy Link
-          <DropdownMenuShortcut>⇧⌘C</DropdownMenuShortcut>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
@@ -109,7 +106,6 @@ export default function ExportOptions({ targetRef }) {
         >
           <DownloadIcon />
           Save as PNG
-          <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
         </DropdownMenuItem>
         <DropdownMenuItem
           className="gap-2"
@@ -117,7 +113,6 @@ export default function ExportOptions({ targetRef }) {
         >
           <DownloadIcon />
           Save as SVG
-          <DropdownMenuShortcut>⇧⌘S</DropdownMenuShortcut>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
