@@ -49,10 +49,27 @@ function App() {
         href={fonts[fontStyle].src}
         crossOrigin="anonymous"
       />
-      <Resizable
-        enable={{ left: true, right: true }}
-        minWidth={padding * 2 + 400}
-      >
+      <div className="hidden sm:block">
+        {/* Only show Resizable on medium and up */}
+        <Resizable
+          enable={{ left: true, right: true }}
+          minWidth={padding * 2 + 400}
+          maxWidth={640}
+        >
+          <div
+            className={cn(
+              "overflow-hidden mb-2 transition-all ease-out",
+              showBackground ? themes[theme].background : ""
+            )}
+            style={{ padding }}
+            ref={editorRef}
+          >
+            <CodeEditor />
+          </div>
+        </Resizable>
+      </div>
+      <div className="block sm:hidden">
+        {/* Optionally render a different component on small screens */}
         <div
           className={cn(
             "overflow-hidden mb-2 transition-all ease-out",
@@ -63,9 +80,9 @@ function App() {
         >
           <CodeEditor />
         </div>
-      </Resizable>
-      <Card className="fixed bottom-8 py-6 px-8 mx-6 bg-neutral-900/90 backdrop-blur">
-        <CardContent className="flex flex-wrap items-center gap-6 p-0">
+      </div>
+      <Card className="fixed bottom-0 sm:bottom-5 py-6 px-4 mx-6 bg-neutral-900/90 backdrop-blur w-full max-w-fit overflow-x-auto">
+        <CardContent className="flex flex-nowrap md:flex-wrap items-center gap-6 p-0">
           <ThemeSelect />
           <LanguageSelect />
           <FontSelect />
@@ -73,7 +90,7 @@ function App() {
           <PaddingSlider />
           <BackgroundSwitch />
           <DarkModeSwitch />
-          <div className="w-px h-10 bg-neutral-800" />
+          <div className="sm-block w-px h-10 bg-neutral-800" />
           <div className="place-self-center">
             <ExportOptions targetRef={editorRef} />
           </div>
